@@ -40,9 +40,13 @@ jobs:
         run: brew audit --cask --strict --online --tap abnormalhq/tap
 
       # The audit does not open the .dmg, so only an install shows that the `app`
-      # stanza names the app that is really in it.
+      # stanza names the app that is really in it. It runs even when a check above
+      # failed, so one run reports every problem.
       - name: Install
+        id: install
+        if: ${{ !cancelled() }}
         run: brew install --cask abnormalhq/tap/abnormal-mail
 
       - name: Uninstall
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: brew uninstall --zap --cask abnormalhq/tap/abnormal-mail
