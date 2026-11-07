@@ -1,0 +1,48 @@
+name: Audit
+
+# Checks the casks on every pull request and every push to main, including the
+# commit the abnormalhq/mail release workflow pushes for each desktop release:
+# Homebrew's style rules, `brew audit` with its online checks (URL, homepage,
+# livecheck, checksum), and a real install and zap uninstall on macOS.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  HOMEBREW_NO_AUTO_UPDATE: 1
+  HOMEBREW_NO_ANALYTICS: 1
+  HOMEBREW_NO_ENV_HINTS: 1
+
+jobs:
+  audit:
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      # Installs Homebrew and checks this repository out as the abnormalhq/tap tap.
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+
+      - name: Style
+        run: brew style abnormalhq/tap
+
+      - name: Audit
+        run: brew audit --cask --strict --online --tap abnormalhq/tap
+
+      # The audit does not open the .dmg, so only an install shows that the `app`
+      # stanza names the app that is really in it.
+      - name: Install
+        run: brew install --cask abnormalhq/tap/abnormal-mail
+
+      - name: Uninstall
+        run: brew uninstall --zap --cask abnormalhq/tap/abnormal-mail

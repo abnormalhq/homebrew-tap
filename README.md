@@ -1,5 +1,7 @@
 # abnormalhq/homebrew-tap
 
+[![Audit](https://github.com/abnormalhq/homebrew-tap/actions/workflows/audit.yml/badge.svg)](https://github.com/abnormalhq/homebrew-tap/actions/workflows/audit.yml)
+
 The [Homebrew](https://brew.sh/) tap for [Abnormal Mail](https://abnormalhq.com/download/), the desktop mail client for Abnormal mailboxes.
 
 | Cask            | App           | Requires                                    |
@@ -48,6 +50,8 @@ brew uninstall --zap --cask abnormal-mail
 ## How the cask is updated
 
 [`Casks/abnormal-mail.rb`](Casks/abnormal-mail.rb) is generated, not written by hand. Each desktop release in [abnormalhq/mail](https://github.com/abnormalhq/mail) uploads the `.dmg` to `downloads.abnormalhq.com`, then `desktop/packaging/release.py` rewrites the cask with the new version and SHA-256 and the release app commits it here. Hand edits to the cask are overwritten by the next release, so change the template in `release.py` instead.
+
+Every pull request and every push to `main`, release commits included, runs [`audit.yml`](.github/workflows/audit.yml) on macOS: `brew style`, `brew audit --cask --strict --online`, and a real install followed by `brew uninstall --zap`.
 
 The cask's `livecheck` reads <https://downloads.abnormalhq.com/desktop/latest.json>, so `brew livecheck abnormal-mail` reports the latest published version.
 
