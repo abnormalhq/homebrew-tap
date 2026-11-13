@@ -2,7 +2,7 @@
 class Abnormal < Formula
   desc "Command-line client for the Abnormal management API"
   homepage "https://abnormalhq.com/developers/"
-  url "https://github.com/abnormalhq/mail/releases/download/cli-v1.7.0/abnormal-1.7.0.tgz"
+  url "https://github.com/abnormalhq/mail/releases/download/cli-v1.8.0/abnormal-1.8.0.tgz"
   # Placeholder: no cli-v* release exists yet, so there is no tarball to check. The first release's workflow
   # (cli-release.yml in abnormalhq/mail) replaces this file with the real SHA-256; until then installing fails.
   sha256 "0000000000000000000000000000000000000000000000000000000000000000"
