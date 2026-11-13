@@ -17,7 +17,7 @@ class Abnormal < Formula
 
   def install
     libexec.install Dir["*"]
-    (bin/"abnormal").write_env_script libexec/"bin/abnormal", PATH: "#{Formula["node"].opt_bin}:$PATH"
+    (bin/"abnormal").write_env_script libexec/"bin/abnormal", PATH: "#{formula_opt_bin("node")}:$PATH"
   end
 
   test do
