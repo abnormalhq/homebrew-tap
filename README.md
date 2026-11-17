@@ -83,3 +83,7 @@ Windows installers (x64 and Arm64) are on <https://abnormalhq.com/download/>. Se
 ## Issues
 
 Report problems with the app or the cask in [abnormalhq/mail](https://github.com/abnormalhq/mail/issues).
+
+## License
+
+[MIT](LICENSE). The license covers this tap's own files; the Abnormal Mail app it installs has its own terms.
