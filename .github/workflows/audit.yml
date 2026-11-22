@@ -31,7 +31,7 @@ jobs:
     steps:
       # Installs Homebrew and checks this repository out as the abnormalhq/tap tap.
       - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@main
+        uses: Homebrew/actions/setup-homebrew@2026.11.14.1
 
       - name: Style
         run: brew style abnormalhq/tap
